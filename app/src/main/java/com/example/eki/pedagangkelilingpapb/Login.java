@@ -61,10 +61,12 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressDialog = new ProgressDialog(Login.this) ;
+                progressDialog.setMessage("Loading");
+                progressDialog.show();
                // new sendLogin().execute("http://192.168.1.10/pedagang/index.php/c_admin/uploadLogin/" + email.getText()+"/"+pass.getText());
                 RequestQueue queue = Volley.newRequestQueue(Login.this);
-                String url = "http://192.168.1.25/pedagang/index.php/c_admin/uploadLogin/"+email.getText()+"/"+pass.getText();
+                String url = "http://192.168.1.10/pedagang/index.php/c_admin/uploadLogin/"+email.getText()+"/"+pass.getText();
 // Instantiate the RequestQueue.
 
 
@@ -75,10 +77,21 @@ public class Login extends AppCompatActivity {
                             public void onResponse(String response) {
                                 // Display the first 500 characters of the response string.
                                 if (response.equalsIgnoreCase("1")){
-                                    startActivity(new Intent(Login.this, tesSuksesLogin.class));
+                                    progressDialog.setMessage("Sukses");
+                                    progressDialog.show();
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(Login.this, MapPedagang.class);
+                                    intent.putExtra("EMAIL_USER", email.getText());
+                                    startActivity(intent);
+                                   //INTENT TANPA EXTRA startActivity(new Intent(Login.this,MapPedagang.class));
                                 }
                                 else {
-                                    email.setText("LOGIN GAGAL");
+                                    progressDialog.setMessage("Gagal");
+                                    progressDialog.show();;
+                                   // email.setText("LOGIN GAGAL");
+                                    progressDialog.dismiss();
+                                    email.setText("");
+                                    email.setHint("Login Gagal");
                                 }
                             }
                         }, new Response.ErrorListener() {

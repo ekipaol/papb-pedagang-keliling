@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PedagangKelilingPAPB</string>
     <string name="title_activity_tes_sukses_login">tesSuksesLogin</string>
+    <string name="title_activity_map_pedagang">Map</string>
 </resources>

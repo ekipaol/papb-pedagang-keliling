@@ -23,6 +23,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -132,10 +134,12 @@ public class MapPedagang extends FragmentActivity implements
                                                         public void onResponse(String response) {
                                                             longitude=Double.parseDouble(response);
                                                             LatLng latLng = new LatLng(latitude, longitude);
+                                                            BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.iconmini);
                                                             mMap.addMarker(new MarkerOptions()
                                                                     .position(latLng) //setting position
                                                                     .draggable(false) //Making the marker draggable
-                                                                    .title("Sampel Pedagang"+latitude+", "+longitude)); //Adding a title
+                                                                    .title("Sampel Pedagang"+latitude+", "+longitude)
+                                                            .icon(icon)); //Adding a title
 
 
                                                         }

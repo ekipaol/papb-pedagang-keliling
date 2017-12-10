@@ -59,7 +59,10 @@ PedagangFragment pedagang=new PedagangFragment();
         pedagang.setArguments(args);
         adapter.addFragment(pedagang, "Pedagang");
 //adapter.addFragment(new HomeFragment(),"Home");
-        adapter.addFragment(new MyAccountFragment(), "My Account");
+
+        MyAccountFragment account=new MyAccountFragment();
+        account.setArguments(args);
+        adapter.addFragment(account, "My Account");
         viewPager.setAdapter(adapter);
     }
 

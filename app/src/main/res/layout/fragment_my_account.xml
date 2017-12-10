@@ -69,7 +69,7 @@
                         android:id="@+id/editName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Savira Fahrunisa"
+
                         android:textColorHint="@drawable/selector"
                         android:textSize="13dp" />
 
@@ -85,24 +85,10 @@
 
 
 
-                    <TextView
-                        android:id="@+id/txt_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/navigationBarColor"
-                        android:text="Username"
-                        android:textSize="13dp" />
 
 
 
-                    <EditText
-                        android:id="@+id/editUserName"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="savirafhr"
-                        android:textColorHint="@drawable/selector"
-                        android:textSize="13dp" />
+
 
 
                 </LinearLayout>
@@ -144,7 +130,7 @@
                         android:id="@+id/editEmail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="saviraf@gmail.com"
+
                         android:textColorHint="@drawable/selector"
                         android:textSize="13dp" />
 
@@ -174,7 +160,7 @@
                         android:id="@+id/editContact"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="085851474026"
+
                         android:textColorHint="@drawable/selector"
                         android:textSize="13dp" />
 
@@ -202,7 +188,7 @@
                         android:id="@+id/editAddress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Jl Panjaitan Gg 19/No 40"
+
                         android:textColorHint="@drawable/selector"
                         android:textSize="13dp" />
 

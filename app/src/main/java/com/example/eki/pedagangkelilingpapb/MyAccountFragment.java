@@ -11,8 +11,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MyAccountFragment extends Fragment {
@@ -22,7 +32,9 @@ public class MyAccountFragment extends Fragment {
     EditText editName, editUsername, editEmail, editContact;
     Spinner editGender;
     Button btn_edit;
-    String url = "http://10.0.2.2/asongan/parsing.php";
+    String emailExtra;
+    View view;
+
 
     public MyAccountFragment() {
         // Required empty public constructor
@@ -43,25 +55,46 @@ public class MyAccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_account, container, false);
+         view = inflater.inflate(R.layout.fragment_my_account, container, false);
+        Bundle args = getArguments();
+        emailExtra = args.getString("email");
+        String url3 = "http://192.168.1.10/pedagang/index.php/c_admin/getNama/"+emailExtra;
+        RequestQueue queue3 = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest3 = new StringRequest(Request.Method.GET, url3,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
+                        editName = (EditText) view.findViewById(R.id.editName);
+                        editName.setText(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        queue3.add(stringRequest3);
 
         txt_name = (TextView) view.findViewById(R.id.txt_name);
-        txt_username = (TextView) view.findViewById(R.id.txt_username);
+
         txt_info = (TextView) view.findViewById(R.id.txt_info);
         txt_email = (TextView) view.findViewById(R.id.txt_email);
+
         txt_contact = (TextView) view.findViewById(R.id.txt_contact);
         txt_gender = (TextView) view.findViewById(R.id.txt_gender);
         img_pembeli = (ImageView) view.findViewById(R.id.img_pembeli);
         editName = (EditText) view.findViewById(R.id.editName);
-        editUsername = (EditText) view.findViewById(R.id.editUserName);
+
         editEmail = (EditText) view.findViewById(R.id.editEmail);
+        editEmail.setText(emailExtra);
         editContact = (EditText) view.findViewById(R.id.editContact);
         editGender = (Spinner) view.findViewById(R.id.editGender);
         btn_edit = (Button) view.findViewById(R.id.btn_edit);
 
 
-        Glide.with(this).load("https://www.thefamouspeople.com/profiles/images/emma-watson-5.jpg")
+        Glide.with(this).load("https://www.theatrework.org/sites/default/files/styles/medium/public/images/BLANK_PROFILE.png?itok=n8DB7YbT")
                 .apply(RequestOptions.circleCropTransform())
                 .into((ImageView) view.findViewById(R.id.img_pembeli));
 

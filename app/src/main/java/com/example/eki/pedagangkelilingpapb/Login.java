@@ -37,6 +37,7 @@ public class Login extends AppCompatActivity {
     EditText email;
     EditText pass;
     TextView register;
+    String emailIntent;
 
     RequestQueue requestQueue;
     private ProgressDialog progressDialog;
@@ -48,6 +49,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         login = (Button) findViewById(R.id.button);
         email = (EditText) findViewById(R.id.username);
+        emailIntent=email.getText().toString();
         pass = (EditText) findViewById(R.id.pass);
         register= (TextView) findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +82,10 @@ public class Login extends AppCompatActivity {
                                     progressDialog.setMessage("Sukses");
                                     progressDialog.show();
                                     progressDialog.dismiss();
-                                    Intent intent = new Intent(Login.this, MapPedagang.class);
-                                    intent.putExtra("EMAIL_USER", email.getText());
+                                    String e=email.getText().toString();
+
+                                    Intent intent = new Intent(Login.this, Home.class);
+                                    intent.putExtra("email", e);
                                     startActivity(intent);
                                    //INTENT TANPA EXTRA startActivity(new Intent(Login.this,MapPedagang.class));
                                 }

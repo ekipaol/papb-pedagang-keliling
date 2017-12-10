@@ -52,6 +52,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:text="Password  "
+
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
@@ -60,6 +61,7 @@
         android:id="@+id/input_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:layout_toRightOf="@+id/text_pass"
         android:textStyle="bold"
         android:textSize="18sp"

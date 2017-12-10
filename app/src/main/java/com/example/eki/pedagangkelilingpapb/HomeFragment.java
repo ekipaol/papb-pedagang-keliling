@@ -1,4 +1,11 @@
 package com.example.eki.pedagangkelilingpapb;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.content.Intent;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -27,8 +34,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-//MASIH ERROR, GAKTAU THISNYA ISINYA NULL DI BAGIAN MAPfRAGMENT.
-public class MapPedagang extends FragmentActivity implements
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+
+
+public class HomeFragment extends Fragment implements
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -36,7 +49,6 @@ public class MapPedagang extends FragmentActivity implements
         GoogleMap.OnMapLongClickListener,
         View.OnClickListener{
 
-    //Our Map
     private GoogleMap mMap;
 
     //To store longitude and latitude from map
@@ -49,49 +61,64 @@ public class MapPedagang extends FragmentActivity implements
     private ImageButton buttonView;
     String email;
 
+
     //Google ApiClient
     private GoogleApiClient googleApiClient;
 
 
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_pedagang);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_map_pedagang, container, false);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         //Initializing googleapi client
-        googleApiClient = new GoogleApiClient.Builder(this)
+        googleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
         //Initializing views and adding onclick listeners
-        buttonSave = (ImageButton) findViewById(R.id.buttonSave);
-        buttonCurrent = (ImageButton) findViewById(R.id.buttonCurrent);
-        buttonView = (ImageButton) findViewById(R.id.buttonView);
+        buttonSave = (ImageButton) v.findViewById(R.id.buttonSave);
+        buttonCurrent = (ImageButton) v.findViewById(R.id.buttonCurrent);
+        buttonView = (ImageButton) v.findViewById(R.id.buttonView);
         buttonSave.setOnClickListener(this);
         buttonCurrent.setOnClickListener(this);
         buttonView.setOnClickListener(this);
+
+
+        return v;
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         googleApiClient.connect();
         super.onStart();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         googleApiClient.disconnect();
         super.onStop();
     }
 
     //Getting current location
     private void getCurrentLocation() {
+
         mMap.clear();
         //Creating a location object
         Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
@@ -99,9 +126,9 @@ public class MapPedagang extends FragmentActivity implements
             //Getting longitude and latitude
             longitude = location.getLongitude();
             latitude = location.getLatitude();
-             email = getIntent().getStringExtra("EMAIL_USER");
+            email = getActivity().getIntent().getStringExtra("EMAIL_USER");
 
-            RequestQueue queue = Volley.newRequestQueue(MapPedagang.this);
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
             String url = "http://192.168.1.10/pedagang/index.php/c_admin/updateLokasi/"+latitude+"/"+longitude+"/"+"admin";
 // Instantiate the RequestQueue.
 
@@ -117,7 +144,7 @@ public class MapPedagang extends FragmentActivity implements
 
 
 // Request a string response from the provided URL.
-                            RequestQueue queue2 = Volley.newRequestQueue(MapPedagang.this);
+                            RequestQueue queue2 = Volley.newRequestQueue(getActivity());
                             StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2,
                                     new Response.Listener<String>() {
                                         @Override
@@ -125,7 +152,7 @@ public class MapPedagang extends FragmentActivity implements
                                             latitude=Double.parseDouble(response);
                                             //FOR LONGITUDE PARAMETER
                                             String url3 = "http://192.168.1.10/pedagang/index.php/c_admin/getPedagangLon/";
-                                            RequestQueue queue3 = Volley.newRequestQueue(MapPedagang.this);
+                                            RequestQueue queue3 = Volley.newRequestQueue(getActivity());
                                             StringRequest stringRequest3 = new StringRequest(Request.Method.GET, url3,
                                                     new Response.Listener<String>() {
                                                         @Override
@@ -203,7 +230,7 @@ public class MapPedagang extends FragmentActivity implements
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         //Displaying current coordinates in toast
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -269,4 +296,5 @@ public class MapPedagang extends FragmentActivity implements
             moveMap();
         }
     }
+
 }

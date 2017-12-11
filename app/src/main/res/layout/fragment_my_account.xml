@@ -209,6 +209,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="Gender"
+                        android:visibility="invisible"
                         android:textColor="@color/navigationBarColor"
                         android:textSize="13dp" />
 
@@ -216,6 +217,7 @@
                         android:id="@+id/editGender"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="invisible"
                         android:entries="@array/sp_gender">
 
                     </Spinner>

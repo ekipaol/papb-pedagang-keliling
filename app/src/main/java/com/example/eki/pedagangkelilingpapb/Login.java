@@ -68,10 +68,10 @@ public class Login extends AppCompatActivity {
                 progressDialog.show();
                // new sendLogin().execute("http://192.168.1.10/pedagang/index.php/c_admin/uploadLogin/" + email.getText()+"/"+pass.getText());
                 RequestQueue queue = Volley.newRequestQueue(Login.this);
-                String url = "http://192.168.1.10/pedagang/index.php/c_admin/uploadLogin/"+email.getText()+"/"+pass.getText();
-// Instantiate the RequestQueue.
-
-
+                                String url = "http://192.168.43.83/pedagang/index.php/c_admin/uploadLogin/"+email.getText()+"/"+pass.getText();
+// Intantiate the RequestQueue.
+                // ini IP tethering ke HP 192.168.43.83
+                // ini IP konek ke wifi kos eki 192.168.1.10
 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        email.setText("GAGAL!");
+                        email.setText("KONEKSI ERROR!");
                     }
                 });
 // Add the request to the RequestQueue.
@@ -110,7 +110,6 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
 
     class sendLogin extends AsyncTask<String, Void, String> {
         @Override

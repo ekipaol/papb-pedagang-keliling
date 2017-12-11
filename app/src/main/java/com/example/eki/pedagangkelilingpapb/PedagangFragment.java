@@ -86,7 +86,7 @@ public class PedagangFragment extends Fragment {
             protected Void doInBackground(Integer... integers) {
 
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url("http://192.168.1.10/asongan/script.php?id=" + id).build();
+                Request request = new Request.Builder().url("http://192.168.43.83/asongan/script.php?id=" + id).build();
                 try {
                     Response response = client.newCall(request).execute();
 

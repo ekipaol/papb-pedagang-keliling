@@ -27,7 +27,9 @@ public class BackgroundRegister extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params){
         String type = params[0];
-        String register_url = "http://192.168.1.10/pedagang/index.php/register/register";
+        String register_url = "http://192.168.43.83/pedagang/index.php/register/register";
+        // ini IP tethering ke HP 10.34.229.217
+        // ini IP konek ke wifi kos eki 192.168.1.10
         if(type.equals("register")){
             try{
                 String name = params[1];

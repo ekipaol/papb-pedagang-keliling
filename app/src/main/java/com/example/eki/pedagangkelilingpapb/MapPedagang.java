@@ -49,6 +49,8 @@ public class MapPedagang extends FragmentActivity implements
     private ImageButton buttonSave;
     private ImageButton buttonCurrent;
     private ImageButton buttonView;
+    String emailPedagang;
+    String namaPedagang;
     String email;
 
     //Google ApiClient
@@ -102,6 +104,8 @@ public class MapPedagang extends FragmentActivity implements
             longitude = location.getLongitude();
             latitude = location.getLatitude();
              email = getIntent().getStringExtra("EMAIL_USER");
+            emailPedagang=getIntent().getStringExtra("data");
+            namaPedagang=getIntent().getStringExtra("nama_pedagang");
 
             RequestQueue queue = Volley.newRequestQueue(MapPedagang.this);
             String url = "http://192.168.43.83/pedagang/index.php/c_admin/updateLokasi/"+latitude+"/"+longitude+"/"+"admin";
@@ -114,7 +118,7 @@ public class MapPedagang extends FragmentActivity implements
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            String url2 = "http://192.168.43.83/pedagang/index.php/c_admin/getPedagangLat/";
+                            String url2 = "http://192.168.43.83/pedagang/index.php/c_admin/getPedagangLat/"+emailPedagang;
                             // ini IP tethering ke HP 192.168.43.83
                             // ini IP konek ke wifi kos eki 192.168.1.10
 // Instantiate the RequestQueue.
@@ -128,7 +132,7 @@ public class MapPedagang extends FragmentActivity implements
                                         public void onResponse(String response) {
                                             latitude=Double.parseDouble(response);
                                             //FOR LONGITUDE PARAMETER
-                                            String url3 = "http://192.168.43.83/pedagang/index.php/c_admin/getPedagangLon/";
+                                            String url3 = "http://192.168.43.83/pedagang/index.php/c_admin/getPedagangLon/"+emailPedagang;
                                             RequestQueue queue3 = Volley.newRequestQueue(MapPedagang.this);
                                             StringRequest stringRequest3 = new StringRequest(Request.Method.GET, url3,
                                                     new Response.Listener<String>() {
@@ -140,7 +144,7 @@ public class MapPedagang extends FragmentActivity implements
                                                             mMap.addMarker(new MarkerOptions()
                                                                     .position(latLng) //setting position
                                                                     .draggable(false) //Making the marker draggable
-                                                                    .title("Sampel Pedagang"+latitude+", "+longitude)
+                                                                    .title(namaPedagang+latitude+", "+longitude)
                                                             .icon(icon)); //Adding a title
 
 
